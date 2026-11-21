@@ -1,0 +1,6 @@
+---
+- name: Download and unpack WordPress
+  import_tasks: download.yaml
+
+- name: Connect WordPress to the database server
+  import_tasks: configure.yaml

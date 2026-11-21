@@ -1,0 +1,9 @@
+---
+mysql_bind_address: "0.0.0.0"
+mysql_config_file: /etc/mysql/mysql.conf.d/mysqld.cnf
+mysql_socket: /var/run/mysqld/mysqld.sock
+
+mysql_wp_user_host: "{{ hostvars[groups['web'][0]]['ansible_host'] | default(groups['web'][0]) }}"
+mysql_wp_privileges: "SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER,INDEX"
+
+mysql_wp_update_password: on_create

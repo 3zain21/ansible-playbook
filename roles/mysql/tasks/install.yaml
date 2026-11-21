@@ -1,0 +1,15 @@
+---
+- name: Install MySQL server
+  apt:
+    name:
+      - mysql-server
+      - python3-pymysql
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Start and enable MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: true

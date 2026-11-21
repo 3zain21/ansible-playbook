@@ -1,0 +1,6 @@
+---
+- name: Install Apache
+  import_tasks: install.yaml
+
+- name: Configure WordPress
+  import_tasks: configure.yaml

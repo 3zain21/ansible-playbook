@@ -1,0 +1,15 @@
+---
+- name: Check that the database server is reachable on port 3306
+  wait_for:
+    host: "{{ wp_db_host }}"
+    port: 3306
+    timeout: 10
+
+- name: Create wp-config.php
+  template:
+    src: wp-config.php.j2
+    dest: "{{ wp_path }}/wp-config.php"
+    owner: "{{ wordpress_owner }}"
+    group: "{{ wordpress_group }}"
+    mode: "0640"
+  diff: false

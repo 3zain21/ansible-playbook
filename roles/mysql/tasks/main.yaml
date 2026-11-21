@@ -1,0 +1,9 @@
+---
+- name: Install MySQL
+  import_tasks: install.yaml
+
+- name: Configure MySQL
+  import_tasks: configure.yaml
+
+- name: Create WordPress database
+  import_tasks: database.yaml

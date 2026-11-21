@@ -1,0 +1,8 @@
+---
+- name: Install PHP and the extensions WordPress needs
+  apt:
+    name: "{{ lookup('ansible.builtin.file', 'requires').splitlines() }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  notify: Restart apache2

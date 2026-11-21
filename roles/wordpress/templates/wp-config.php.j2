@@ -1,0 +1,25 @@
+<?php
+/**
+ * Managed by Ansible. Edit roles/wordpress/templates/wp-config.php.j2, not this file.
+ */
+
+define( 'DB_NAME',     '{{ wp_db_name }}' );
+define( 'DB_USER',     '{{ wp_db_user }}' );
+define( 'DB_PASSWORD', '{{ wp_db_password | replace("\\", "\\\\") | replace("'", "\\'") }}' );
+define( 'DB_HOST',     '{{ wp_db_host }}' );
+define( 'DB_CHARSET',  'utf8mb4' );
+define( 'DB_COLLATE',  '' );
+
+{% for key in wordpress_salt_keys %}
+define( '{{ key }}', '{{ lookup('ansible.builtin.password', playbook_dir ~ '/credentials/wp_salts/' ~ key ~ ' length=64 chars=ascii_letters,digits') }}' );
+{% endfor %}
+
+$table_prefix = '{{ wordpress_table_prefix }}';
+
+define( 'WP_DEBUG', false );
+
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+
+require_once ABSPATH . 'wp-settings.php';

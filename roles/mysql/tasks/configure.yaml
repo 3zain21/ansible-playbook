@@ -1,0 +1,10 @@
+---
+- name: Let MySQL listen on the network
+  lineinfile:
+    path: "{{ mysql_config_file }}"
+    regexp: '^bind-address'
+    line: "bind-address = {{ mysql_bind_address }}"
+  notify: Restart mysql
+
+- name: Apply the pending MySQL restart
+  meta: flush_handlers

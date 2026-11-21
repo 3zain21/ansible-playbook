@@ -1,0 +1,23 @@
+---
+- name: Create the install directory
+  file:
+    path: "{{ wp_install_dir }}"
+    state: directory
+    owner: "{{ wordpress_owner }}"
+    group: "{{ wordpress_group }}"
+    mode: "0755"
+
+- name: Download the WordPress archive
+  get_url:
+    url: "{{ wordpress_download_url }}"
+    dest: "{{ wordpress_archive }}"
+    mode: "0644"
+
+- name: Unpack WordPress
+  unarchive:
+    src: "{{ wordpress_archive }}"
+    dest: "{{ wp_install_dir }}"
+    remote_src: true
+    owner: "{{ wordpress_owner }}"
+    group: "{{ wordpress_group }}"
+    creates: "{{ wp_path }}/wp-settings.php"

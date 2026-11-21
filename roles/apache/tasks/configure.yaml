@@ -1,0 +1,27 @@
+---
+- name: Create WordPress virtual host
+  template:
+    src: wordpress.conf.j2
+    dest: /etc/apache2/sites-available/wordpress.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload apache2
+
+- name: Enable the WordPress site
+  command: a2ensite wordpress
+  args:
+    creates: /etc/apache2/sites-enabled/wordpress.conf
+  notify: Reload apache2
+
+- name: Enable URL rewriting
+  command: a2enmod rewrite
+  args:
+    creates: /etc/apache2/mods-enabled/rewrite.load
+  notify: Reload apache2
+
+- name: Disable the default "It works" site
+  command: a2dissite 000-default
+  args:
+    removes: /etc/apache2/sites-enabled/000-default.conf
+  notify: Reload apache2

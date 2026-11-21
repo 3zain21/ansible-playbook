@@ -1,0 +1,18 @@
+---
+wordpress_download_url: https://wordpress.org/latest.tar.gz
+wordpress_archive: /tmp/wordpress.tar.gz
+
+wordpress_owner: www-data
+wordpress_group: www-data
+
+wordpress_table_prefix: wp_
+
+wordpress_salt_keys:
+  - AUTH_KEY
+  - SECURE_AUTH_KEY
+  - LOGGED_IN_KEY
+  - NONCE_KEY
+  - AUTH_SALT
+  - SECURE_AUTH_SALT
+  - LOGGED_IN_SALT
+  - NONCE_SALT

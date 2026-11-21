@@ -1,0 +1,16 @@
+*.retry
+*.log
+.ansible/
+
+.vault_pass
+.vault_password
+
+credentials/
+.vagrant/
+.old/
+inventory/group_vars/all/vault.yaml
+*.swp
+*~
+.vscode/
+.idea/
+__pycache__/

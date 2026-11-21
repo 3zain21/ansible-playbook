@@ -1,0 +1,28 @@
+---
+- name: Check Database Password
+  assert:
+    that:
+      - wp_db_password is defined
+      - wp_db_password | length > 4
+    fail_msg: >-
+      wp_db_password is not set. Create inventory/group_vars/all/vault.yaml and run with --ask-vault-pass.
+    quiet: true
+
+- name: Create WordPress database
+  community.mysql.mysql_db:
+    name: "{{ wp_db_name }}"
+    encoding: utf8mb4
+    collation: utf8mb4_unicode_ci
+    state: present
+    login_unix_socket: "{{ mysql_socket }}"
+
+- name: Create WordPress database user
+  community.mysql.mysql_user:
+    name: "{{ wp_db_user }}"
+    host: "{{ mysql_wp_user_host }}"
+    password: "{{ wp_db_password }}"
+    update_password: "{{ mysql_wp_update_password }}"
+    priv: "{{ wp_db_name }}.*:{{ mysql_wp_privileges }}"
+    state: present
+    login_unix_socket: "{{ mysql_socket }}"
+  no_log: true
